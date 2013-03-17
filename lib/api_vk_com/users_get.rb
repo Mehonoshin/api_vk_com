@@ -1,19 +1,21 @@
-class UsersGet < VkMethod
-	@method_name = 'users.get'
-	PARAMS = { 'fields' => 'uid, first_name, last_name, screen_name, sex, bdate, city, country, photo, photo_big, has_mobile' }
+module ApiVkCom
+  class UsersGet < VkMethod
+    @method_name = 'users.get'
+    PARAMS = { 'fields' => 'uid, first_name, last_name, screen_name, sex, bdate, city, country, photo, photo_big, has_mobile' }
 
-	def self.exec(params)
-		get_user_info(params).first
-	rescue => e
-		puts e
-		nil
-	end
+    def self.exec(params)
+      get_user_info(params).first
+    rescue => e
+      puts e
+      nil
+    end
 
-	private
+    private
 
-	def self.get_user_info(params)
-		params.merge!(PARAMS) if params.exclude?(:fields)
-		JSON.parse(send_request(my_vk_name, params).body)['response']
-	end
+    def self.get_user_info(params)
+      params.merge!(PARAMS) if params.exclude?(:fields)
+      JSON.parse(send_request(params).body)['response']
+    end
 
+  end
 end
