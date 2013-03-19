@@ -6,13 +6,13 @@ module ApiVkCom
 
     def self.exec(params)
       posts, attempt = [], 0
-      count = params[:count] || COUNT
-      params.merge!('count' => count)
+      count = params[:count].to_i || COUNT
+      params.merge!('count' => count > 100 ? 100 : count)
 
       response = get_wall_posts(params).drop(1)
       posts.concat(response)
       until posts.size >= count
-        sleep 0.2
+        sleep 0.3
         response = get_wall_posts(params, attempt += 1).drop(1)
         posts.concat(response)
       end
