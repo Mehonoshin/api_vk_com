@@ -10,12 +10,10 @@ module ApiVkCom
       params.merge!('count' => count)
 
       response = get_wall_posts(params).drop(1)
-      puts "response ===> #{response.inspect}"
       posts.concat(response)
       until posts.size >= count || response.empty?
         sleep 0.2
         response = get_wall_posts(params, attempt += 1).drop(1)
-        puts "response ===> #{response.inspect}"
         posts.concat(response)
       end
       posts
