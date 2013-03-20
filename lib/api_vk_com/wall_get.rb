@@ -2,18 +2,20 @@ module ApiVkCom
   class WallGet < VkMethod
     @method_name = 'wall.get'
     COUNT = 30
-    PARAMS = { 'offset' => 0, 'filter' => 'owner' }
+    PARAMS = { 'filter' => 'owner' }
 
     def self.exec(params)
       posts, attempt = [], 0
       count = params[:count].to_i || COUNT
-      params.merge!('count' => count > 100 ? 100 : count)
+      params.merge!('count' => count)
 
       response = get_wall_posts(params).drop(1)
+      puts "response ===> #{response.inspect}"
       posts.concat(response)
-      until posts.size >= count
-        sleep 0.3
+      until posts.size >= count || response.empty?
+        sleep 0.2
         response = get_wall_posts(params, attempt += 1).drop(1)
+        puts "response ===> #{response.inspect}"
         posts.concat(response)
       end
       posts
@@ -25,6 +27,7 @@ module ApiVkCom
     private
 
     def self.get_wall_posts(params, offset = 0)
+      params.merge!('offset' => offset * 100)
       JSON.parse(send_request(params.merge(PARAMS)).body)['response']
     end
 
