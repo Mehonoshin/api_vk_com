@@ -9,7 +9,7 @@ module ApiVkCom
       response = get_members_list(params)
       count = response['count'].to_i
       user_ids.concat(response['users'])
-      until user_ids.size >= count
+      until user_ids.size >= count || response['users'].empty?
         sleep 0.2
         response = get_members_list(params, attempt += 1)
         user_ids.concat(response['users']).uniq!
