@@ -6,15 +6,11 @@ Gem for some methods of vk.com API.
 
 Add this line to your application's Gemfile:
 
-    gem 'api_vk_com'
+    gem 'api_vk_com', :git => 'git://github.com/fbandrey/api_vk_com.git'
 
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install api_vk_com
 
 ## Usage
 
