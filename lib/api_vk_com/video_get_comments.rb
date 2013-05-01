@@ -5,7 +5,7 @@ module ApiVkCom
 
     def self.exec(params)
       user_ids, attempt = [], 0
-    
+
       comments_info = get_comments_list(params)
       count = comments_info.first.to_i
       comments = comments_info.drop(1)
