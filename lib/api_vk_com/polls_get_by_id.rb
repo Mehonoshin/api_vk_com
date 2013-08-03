@@ -3,7 +3,8 @@ module ApiVkCom
     @method_name = 'polls.getById'
 
     def self.exec(params)
-      get_poll_by_id(params).first
+      # .first
+      get_poll_by_id(params)
     rescue => e
       puts e
       nil
@@ -12,7 +13,8 @@ module ApiVkCom
     private
 
     def self.get_poll_by_id(params)
-      JSON.parse(send_request(params).body)['response']
+      # ['response']
+      JSON.parse(send_request(params).body)
     end
 
   end
