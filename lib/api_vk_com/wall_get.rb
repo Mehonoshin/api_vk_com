@@ -26,7 +26,7 @@ module ApiVkCom
 
     def self.get_wall_posts(params, offset = 0)
       params.merge!('offset' => offset * 100)
-      JSON.parse(send_request(params.merge(PARAMS)).body)['response']
+      JSON.parse(send_request(PARAMS.merge(params)).body)['response']
     end
 
   end
