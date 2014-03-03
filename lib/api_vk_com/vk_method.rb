@@ -21,6 +21,8 @@ module ApiVkCom
         res = session.start do |http|
           http.request(req)
         end
+        puts res.body
+        res
       end
     end
   end
