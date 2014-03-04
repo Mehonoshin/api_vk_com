@@ -23,7 +23,9 @@ module ApiVkCom
 
     def self.get_groups(params, offset = 0)
       params.merge!('offset' => offset * 1000)
-      JSON.parse(send_request(params.merge(PARAMS)).body)['response']
+      response = JSON.parse(send_request(params.merge(PARAMS)).body)
+      #raise(ApiVkCom::CaptchaNeeded, "http://api.vk.com/captcha.php?sid=77832259230")
+      response['response'] || raise(ApiVkCom::CaptchaNeeded, {captcha_sid: response['error']['captcha_sid'], captcha_img: response['error']['captcha_img']})
     end
 
   end
