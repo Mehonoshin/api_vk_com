@@ -25,7 +25,7 @@ module ApiVkCom
       params.merge!('offset' => offset * 1000)
       response = JSON.parse(send_request(params.merge(PARAMS)).body)
       #raise(ApiVkCom::CaptchaNeeded, "http://api.vk.com/captcha.php?sid=77832259230")
-      response['response'] || raise(ApiVkCom::CaptchaNeeded, {captcha_sid: response['error']['captcha_sid'], captcha_img: response['error']['captcha_img']})
+      response['response'] || raise(ApiVkCom::CaptchaNeeded, response['error']['captcha_sid'])
     end
 
   end
